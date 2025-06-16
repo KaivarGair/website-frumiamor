@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Tambahan agar responsive di HP -->
+  <title>Sweet Letter with Music</title>
+
+  <!-- 🎨 Import Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #fcb6d0;
+      background-image: url('https://i.ibb.co/Qf1BLsz/hearts-clouds-bg.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      font-family: 'Dancing Script', cursive;
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* Mencegah scrollbar muncul */
+    }
+
+    .paper {
+      width: 90%;
+      max-width: 600px;
+      height: auto;
+      min-height: 350px;
+      background-color: white;
+      margin: 60px auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+      background-image: repeating-linear-gradient(white, white 24px, #9ad0ec 25px);
+      position: relative;
+      line-height: 25px;
+      z-index: 1; /* Pastikan kotak teks di atas hati */
+    }
+
+    .paper::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 100%;
+      background: radial-gradient(circle, #444 1px, transparent 1px);
+      background-size: 10px 25px;
+    }
+
+    .typing-text {
+      white-space: pre-line;
+      font-size: 18px;
+      color: #333;
+      font-family: 'Dancing Script', cursive;
+    }
+
+    /* Gaya untuk hati */
+    .heart {
+      position: absolute;
+      font-size: 50px; /* Ukuran hati */
+      animation: moveHeart 5s linear infinite; /* Animasi bergerak */
+      z-index: 0; /* Pastikan hati di bawah kotak teks */
+    }
+
+    @keyframes moveHeart {
+      0% { transform: translateY(100vh); opacity: 1; }
+      100% { transform: translateY(-10%); opacity: 0; }
+    }
+
+    /* Gaya untuk tombol Next */
+    .next-button {
+      position: fixed; /* Mengatur posisi tombol tetap */
+      bottom: 20px; /* Jarak dari bawah */
+      right: 20px; /* Jarak dari kanan */
+      padding: 10px 20px;
+      font-size: 18px;
+      color: white;
+      background-color: #ff4081; /* Warna latar belakang tombol */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      z-index: 2; /* Pastikan tombol di atas elemen lainnya */
+    }
+
+    .next-button:hover {
+      background-color: #e91e63; /* Warna saat hover */
+    }
+
+    /* Media Query agar tampilan tetap enak dilihat di HP */
+    @media (max-width: 480px) {
+      .typing-text {
+        font-size: 16px;
+      }
+
+      .paper {
+        padding: 15px;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+  <!-- Hati yang muncul dari bawah ke atas -->
+  <div class="heart" style="left: 10%; animation-delay: 0s;">❤️</div>
+  <div class="heart" style="left: 30%; animation-delay: 1s;">❤️</div>
+  <div class="heart" style="left: 50%; animation-delay: 2s;">❤️</div>
+  <div class="heart" style="left: 70%; animation-delay: 3s;">❤️</div>
+  <div class="heart" style="left: 90%; animation-delay: 4s;">❤️</div>
+
+  <div class="paper">
+    <div id="text" class="typing-text"></div>
+  </div>
+
+  <!-- Tombol Next di bawah kanan -->
+  <button class="next-button" onclick="location.href='love.html'">Next</button>
+
+  <!-- 🎵 Musik Latar -->
+  <audio id="bgmusic" autoplay loop>
+    <source src="lagu surat.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const message = `Selamat atas kelulusanmu!
+Hari ini bukan hanya tentang akhir dari sebuah perjalanan, tapi juga awal dari mimpi-mimpi besar yang siap kamu wujudkan.
+Kamu sudah melangkah sejauh ini dengan ketulusan, semangat, dan hati yang tidak pernah menyerah. Dunia di luar sana menantimu dan aku tahu kamu akan menaklukkannya dengan cara yang paling indah. 
+Terima kasih sudah menjadi sosok yang selalu menghadirkan ketenangan dan kebahagiaan, bahkan dalam hal-hal sederhana.
+
+I hope the world showers u with all the happiness and love u truly deserve.
+You're an incredible person who brings light, art, and warmth into the lives of everyone around u.
+May your heart always be full, your smile always bright, and your dreams always within reach.
+Teruslah bersinar, karena cahaya sepertimu terlalu berharga untuk disembunyikan.
+Happy special day, you’re cherished more than words can say. 💖`;
+
+    let i = 0;
+    function typeWriter() {
+      if (i < message.length) {
+        document.getElementById("text").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, 40); // Kecepatan huruf
+      }
+    }
+
+    window.onload = function() {
+      typeWriter();
+      document.getElementById("bgmusic").play().catch(() => {
+        console.log("Autoplay diblokir, perlu interaksi pengguna.");
+      });
+    };
+  </script>
+</body>
+</html>
